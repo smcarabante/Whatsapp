@@ -1,0 +1,48 @@
+import pywhatkit as kit
+import time
+from datetime import datetime, timedelta
+
+# Lista de números de teléfono a los que deseas enviar el mensaje (incluye el código de país, por ejemplo, "+34" para España)
+contactos = ["+3015158012",
+            "+3204508304"]
+
+# URL de la imagen que deseas insertar en el mensaje
+imagen_url = "C:\analitica_de_datos\Creditos\envio_whatsapp\whatsapp pywhatkit\Apertura Dibanka_Junio.jpg"
+
+# Mensaje que deseas enviar
+mensaje = """Cordial Saludo ☀️
+
+Mi nombre es *Sergio Miguel Carabante Buitrago*
+👨‍💼 *Ejecutivo Comercial de Libranza*
+
+Espero se encuentre muy bien 💪
+
+El motivo de mi mensaje es ofrecerle la posibilidad de adquirir dinero con destino *Libre Inversión o Compra de Cartera* 💰
+
+Estaré muy atento a su interés 🤝 Inicialmente tan solo requerimos su *Último Desprendible* para validar viabilidad 💥✨
+
+✅ *Atendemos reportados e incluso con embargos* 🔥
+✅ *Compramos todo tipo de Carteras y de todas las entidades* 🚀
+✅ Nuestros procesos son *100% Digital* de esta manera garantizamos desembolsos más ágiles y eficientes 💯
+
+https://m.facebook.com/story.php?story_fbid=pfbid05snYYyj15jdPMbawC3Azi99QspUZ1SUjT7pT7fY4syvtpvYFSnPpyCHALrWMxaWol&id=100094119348821&mibextid=ZbWKwL"""
+
+# Función para enviar mensajes a varios contactos
+def enviar_mensajes(contactos, mensaje):
+    now = datetime.now()
+    for i, telefono in enumerate(contactos):
+        send_time = now + timedelta(minutes=i+2)  # Añadir 2 minutos para el primer mensaje, 3 para el segundo, etc.
+        hora = send_time.hour
+        minuto = send_time.minute
+        try:
+            # Enviar el mensaje
+            kit.sendwhatmsg(telefono, mensaje, hora, minuto)
+            print(f"Mensaje programado para enviarse a {telefono} a las {hora}:{minuto}")
+        except Exception as e:
+            print(f"Se produjo un error al enviar a {telefono}: {e}")
+
+        # Esperar unos segundos para asegurarse de que el navegador tenga tiempo para abrirse
+        time.sleep(10)
+
+# Llamar a la función para enviar los mensajes
+enviar_mensajes(contactos, mensaje)
